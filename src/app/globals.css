@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fbf8f6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+  /* Visible focus for keyboard users (a11y) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-rose-gold ring-offset-2 ring-offset-cream;
+  }
+  ::selection {
+    @apply bg-dusty-200 text-ink;
+  }
+}
+
+@layer components {
+  .container-px {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .section-y {
+    @apply py-16 sm:py-24;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-rose-gold;
+  }
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 font-medium
+           transition-all duration-300 ease-smooth select-none
+           disabled:cursor-not-allowed disabled:opacity-60;
+    min-height: 48px; /* thumb-friendly */
+    touch-action: manipulation;
+  }
+  .btn-primary {
+    @apply btn bg-rose-gold text-white shadow-glow hover:brightness-105 active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply btn border border-nude-200 bg-white/70 text-ink backdrop-blur
+           hover:border-rose-gold hover:text-rose-gold active:scale-[0.98];
+  }
+  .card {
+    @apply rounded-3xl border border-nude-100 bg-white shadow-soft;
+  }
+  /* Form inputs */
+  .input {
+    @apply w-full rounded-xl border border-nude-200 bg-cream/60 px-4 py-3 text-ink
+           placeholder:text-ink-muted/60 transition-colors
+           focus:border-rose-gold focus:bg-white;
+    min-height: 48px;
+  }
+  /* Loading skeleton shimmer */
+  .skeleton {
+    @apply relative overflow-hidden bg-ash-100;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full animate-shimmer;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.65),
+      transparent
+    );
+  }
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Subtle, premium scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-nude-200;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-nude-300;
+}
