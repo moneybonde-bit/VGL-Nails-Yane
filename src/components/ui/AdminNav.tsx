@@ -25,11 +25,12 @@ const NAV = [
   { href: '/admin/faq', label: 'FAQ', icon: HelpCircle },
 ];
 
-export function AdminNav() {
+export function AdminNav({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
 
   const signOut = async () => {
+    onClose?.();
     const supabase = createClient();
     await supabase.auth.signOut();
     router.push('/admin/login');
@@ -47,6 +48,7 @@ export function AdminNav() {
           <Link
             key={href}
             href={href}
+            onClick={onClose}
             className={cn(
               'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors',
               active ? 'bg-rose-gold text-white' : 'text-ink-muted hover:bg-nude-50 hover:text-ink',
